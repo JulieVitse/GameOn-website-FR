@@ -48,9 +48,10 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  form.style.opacity = "1";
   // prevents page scrolling when modal is opened
-  modalbg.style.overflow = "hidden";
-  body.style.overflow = "hidden";
+  /* modalbg.style.overflow = "hidden";
+  body.style.overflow = "hidden"; */
 }
 
 // close modal
@@ -61,12 +62,13 @@ closeBtn.addEventListener('click', () => {
 // displays confimation message on valid form submit
 function confirmationOpen(){
   modalConfirm.style.display = "flex";
-  modalbg.style.display = "none";
+  form.style.opacity = "0";
 }
 
 //closes confirmation window
 modalConfirmClose.addEventListener('click', () => {
   modalConfirm.style.display = "none";
+  modalbg.style.display = "none";
 })
 
 /* ------------------------------ INPUT CHECKS ------------------------------ */
