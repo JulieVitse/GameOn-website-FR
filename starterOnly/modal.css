@@ -472,6 +472,40 @@ input[data-error]::after {
 .hero-section > .btn-signup {
   display: none;
 }
+
+.modal-confirm{    
+  width: 25%; 
+  animation-name: modalconfirm;
+  animation-duration: var(--modal-duration);
+  background: #ffffff;
+  border-radius: 10px;    
+  position: fixed;
+  color: #232323;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  margin: auto;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+.modal-confirm-btn{
+  margin: 0;
+  font-size: 100%;
+  padding: .5rem 1rem;
+  border-radius: 7px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #fe142f;
+}
+
+
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
@@ -520,6 +554,16 @@ footer {
   from {
     opacity: 0;
     transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalconfirm {
+  from {
+    opacity: 0;
+    transform: translateY(150px);
   }
   to {
     opacity: 1;

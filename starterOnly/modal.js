@@ -8,11 +8,15 @@ function editNav() {
 }
 
 // DOM Elements
+const body = document.querySelector('body');
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector('.close');
 const form = document.querySelector('form');
+
+const modalConfirm = document.querySelector('.modal-confirm');
+const modalConfirmClose = document.querySelector('.modal-confirm-btn');
 
 // form data elements
 const firstName = document.getElementById('first');
@@ -44,6 +48,9 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  // prevents page scrolling when modal is opened
+  modalbg.style.overflow = "hidden";
+  body.style.overflow = "hidden";
 }
 
 // close modal
@@ -51,6 +58,18 @@ closeBtn.addEventListener('click', () => {
   modalbg.style.display = "none";
 });
 
+// displays confimation message on valid form submit
+function confirmationOpen(){
+  modalConfirm.style.display = "flex";
+  modalbg.style.display = "none";
+}
+
+//closes confirmation window
+modalConfirmClose.addEventListener('click', () => {
+  modalConfirm.style.display = "none";
+})
+
+/* ------------------------------ INPUT CHECKS ------------------------------ */
 
 // checks first name & returns true if not empty and has 2 or more characters
 function firstNameValid(){
@@ -174,7 +193,8 @@ function validate(){
     //fieldIsValid(6);
   }
   if (formValid){
-    alert("Le formulaire a bien été envoyé");
+    confirmationOpen();
+    //alert("Le formulaire a bien été envoyé");
   }
 }
 
