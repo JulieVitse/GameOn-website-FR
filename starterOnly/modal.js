@@ -23,9 +23,9 @@ const birthdate = document.getElementById('birthdate');
 const conditions = document.getElementById('checkbox1');
 
 // regex for validation
-const regexMail = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
-const regexNumbers = /^[0-9]+$/;
-const regexBirthdate = /^(((0[1-9]|[12][0-9]|3[01])[- /.](0[13578]|1[02])|(0[1-9]|[12][0-9]|30)[- /.](0[469]|11)|(0[1-9]|1\d|2[0-8])[- /.]02)[- /.]\d{4}|29[- /.]02[- /.](\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00))$/;
+//const regexMail = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
+//const regexNumbers = /^[0-9]+$/;
+
 
 //error messages
 const errorMessages = {
@@ -55,35 +55,42 @@ closeBtn.addEventListener('click', () => {
 // checks first name & returns true if not empty and has 2 or more characters
 function firstNameValid(){
   let nameInput = firstName.value;
-  if(nameInput !== null && nameInput.length >= 2) return true;
-  else return false;
+  return nameInput !== null && nameInput.length >= 2;
 }
 
 // checks last name & returns true if not empty and has 2 or more characters
 function lastNameValid(){
   let lastNameInput = lastName.value;
-  if(lastNameInput !== null && lastNameInput.length >= 2) return true;
-  else return false;
+  return lastNameInput !== null && lastNameInput.length >= 2;
 }
 
 //checks for correct email format
 function emailValid(){
-  return regexMail.test(email.value);
+  let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let emailInput = email.value;
+  if (emailInput.match(regex)) return true;
+  //return regexMail.test(email.value);
 }
 
-// checks that only numbers are entered
+// checks that only numbers between 0 and 99 are entered
 function concoursValid(){
-  return regexNumbers.test(concours.value);
+  let concoursQuantity = concours.value;
+  if (concoursQuantity !== '' && concoursQuantity >= 0 && concoursQuantity <= 99)
+  return true;
+  /* return concoursQuantity <= 99 && concoursQuantity !== null; */
+  
 }
 
 //checks for correct birthdate
 function birthdateValid(){
+  let regexBirthdate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
   return regexBirthdate.test(birthdate.value);
 }
 
 // checks that a location has been selected
 function locationValid(){ 
-  let radioButtons = document.querySelectorAll('.checkbox-input[type="radio"]'); // gets all radio inputs
+  // gets all radio inputs
+  let radioButtons = document.querySelectorAll('.checkbox-input[type="radio"]'); 
   // loops through all radio inputs, returns true if one is checked
   for (let radioBtn of radioButtons) {
     if(radioBtn.checked === true) return true;
@@ -99,42 +106,73 @@ function isInvalid(i, message) {
   formData[i].setAttribute("data-error", message);
 }
 
-function validate(event){
-  event.preventDefault();
-  let isValid = true;
+/* function fieldIsValid(i) {
+  formData[i].setAttribute("data-error-visible", "false");
+  formData[i].setAttribute("data-error", "");
+} */
+
+function isValid(){
+  let invalidInput = document.querySelectorAll('.formData[data-error-visible="true"]');
+  for (let input of invalidInput) {
+    input.setAttribute("data-error-visible", "false");
+    input.setAttribute("data-error", "");
+  }
+}
+
+form.addEventListener('submit', function(e){
+  e.preventDefault();
+  validate();
+});
+
+function validate(){
+  let formValid = true;
+  isValid();
   if (!firstNameValid()){   
     isInvalid(0, errorMessages.firstNameError);
-    isValid = false;
+    formValid = false;
+  } else {
+    //fieldIsValid(0);
   }
   if (!lastNameValid()){
-    isValid = false;
+    formValid = false;
     isInvalid(1, errorMessages.lastNameError);
+  } else {
+    //fieldIsValid(1);
   }
   if (!emailValid()){
-    isValid = false;
+    formValid = false;
     isInvalid(2, errorMessages.emailError);
-  }
-  if (!concoursValid()){
-    isValid = false;
-    isInvalid(3, errorMessages.concoursError);
+  } else {
+    //fieldIsValid(2);
   }
   if (!birthdateValid()){
-    isValid = false;
-    isInvalid(4, errorMessages.birthdateError);
+    formValid = false;
+    isInvalid(3, errorMessages.birthdateError);
+  } else {
+    //fieldIsValid(3);
+  }
+  if (!concoursValid()){
+    formValid = false;
+    isInvalid(4, errorMessages.concoursError);
+  } else {
+    //fieldIsValid(4);
   }
   if (!locationValid()){
-    isValid = false;
+    formValid = false;
     isInvalid(5, errorMessages.locationError);
+  } else {
+    //fieldIsValid(5);
   }
-  if (isValid){
+  if (!conditionsValid()){
+    formValid = false;
+    isInvalid(6, errorMessages.conditionsError);
+  } else {
+    //fieldIsValid(6);
+  }
+  if (formValid){
     alert("Le formulaire a bien été envoyé");
   }
 }
 
 
 
-/* form.addEventListener('submit', function(e){
-  e.preventDefault();
-  validate();
-});
- */
