@@ -97,10 +97,12 @@ function locationValid(){
   }
 }
 
+// checks that the required box is checked
 function conditionsValid(){
   return conditions.checked;
 }
 
+// displays error message when field is invalid
 function isInvalid(i, message) {
   formData[i].setAttribute("data-error-visible", "true");
   formData[i].setAttribute("data-error", message);
@@ -111,6 +113,7 @@ function isInvalid(i, message) {
   formData[i].setAttribute("data-error", "");
 } */
 
+// removes error message on valid fields
 function isValid(){
   let invalidInput = document.querySelectorAll('.formData[data-error-visible="true"]');
   for (let input of invalidInput) {
@@ -124,6 +127,7 @@ form.addEventListener('submit', function(e){
   validate();
 });
 
+// checks every field, displays error message when invalid
 function validate(){
   let formValid = true;
   isValid();
