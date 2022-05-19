@@ -48,21 +48,21 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  form.style.opacity = "1";
   // prevents page scrolling when modal is opened
-  /* modalbg.style.overflow = "hidden";
-  body.style.overflow = "hidden"; */
+  body.style.overflow = "hidden";
 }
 
 // close modal
 closeBtn.addEventListener('click', () => {
   modalbg.style.display = "none";
+  // activates scrolling again on closing the modal
+  body.style.overflow = "auto";
 });
 
 // displays confimation message on valid form submit
 function confirmationOpen(){
   modalConfirm.style.display = "flex";
-  form.style.opacity = "0";
+  //form.style.opacity = "0";
 }
 
 //closes confirmation window
@@ -139,7 +139,7 @@ function isValid(){
   let invalidInput = document.querySelectorAll('.formData[data-error-visible="true"]');
   for (let input of invalidInput) {
     input.setAttribute("data-error-visible", "false");
-    input.setAttribute("data-error", "");
+    input.removeAttribute("data-error");
   }
 }
 

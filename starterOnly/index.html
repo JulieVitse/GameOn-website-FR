@@ -57,20 +57,18 @@
       <div class="bground">
         <div class="content">
           <span class="close"></span>
+          <div class="modal-confirm">
+            <div class="modal-confirm-message">Merci pour<br>votre inscription</div>
+            <div class="btn-submit modal-confirm-btn">Fermer</div>
+          </div>
           <div class="modal-body">
-
-            <div class="modal-confirm">
-              <div class="modal-confirm-message">Merci pour<br>votre inscription</div>
-              <div class="modal-confirm-btn">Fermer</div>
-            </div>
-
             <form
               name="reserve"
               action="index.html"
               method="get"
               onsubmit="return validate();"
-              novalidate
-            >
+              novalidate>
+              
               <div
                 class="formData">
                 <label for="first">Prénom</label><br>
