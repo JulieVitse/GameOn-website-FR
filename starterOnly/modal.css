@@ -139,6 +139,7 @@ img {
   .topnav.responsive a{
     margin: 0 0 .5rem 0;
   }
+  
 } 
 
 main {
@@ -525,10 +526,7 @@ input[data-error]::after {
   color: #fff;
   top: 0;
   left: 0;
-  /* right: 0; */
-  /* bottom: 0; */
   z-index: 1;
-  /* margin: auto; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -546,14 +544,13 @@ input[data-error]::after {
 .modal-confirm-btn{
   font-weight: 400;
 }
-
-
-
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+
 @media screen and (min-width: 801px) and (max-width: 1023px){
   .hero-content{
     padding: 29px 35px;
@@ -659,6 +656,9 @@ footer {
   .hero-text{
     margin-top: 1.5rem;
   }
+}
+
+@media screen and (max-width: 540px){
   .bground{
     background-color: initial;
   }
@@ -668,6 +668,8 @@ footer {
     margin: 0 auto;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    width: 100%;
+    max-width: none;
   }
 }
 
