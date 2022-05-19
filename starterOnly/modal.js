@@ -26,11 +26,6 @@ const concours = document.getElementById('quantity');
 const birthdate = document.getElementById('birthdate');
 const conditions = document.getElementById('checkbox1');
 
-// regex for validation
-//const regexMail = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi;
-//const regexNumbers = /^[0-9]+$/;
-
-
 //error messages
 const errorMessages = {
   firstNameError: "Vous devez entrer 2 caractères ou plus.",
@@ -48,21 +43,18 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-  // prevents page scrolling when modal is opened
-  body.style.overflow = "hidden";
+  body.style.overflow = "hidden"; // prevents page scrolling when modal is opened
 }
 
 // close modal
 closeBtn.addEventListener('click', () => {
   modalbg.style.display = "none";
-  // activates scrolling again on closing the modal
-  body.style.overflow = "auto";
+  body.style.overflow = "auto"; // activates scrolling again on closing the modal
 });
 
 // displays confimation message on valid form submit
 function confirmationOpen(){
   modalConfirm.style.display = "flex";
-  //form.style.opacity = "0";
 }
 
 //closes confirmation window
@@ -90,7 +82,6 @@ function emailValid(){
   let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   let emailInput = email.value;
   if (emailInput.match(regex)) return true;
-  //return regexMail.test(email.value);
 }
 
 // checks that only numbers between 0 and 99 are entered
@@ -98,8 +89,6 @@ function concoursValid(){
   let concoursQuantity = concours.value;
   if (concoursQuantity !== '' && concoursQuantity >= 0 && concoursQuantity <= 99)
   return true;
-  /* return concoursQuantity <= 99 && concoursQuantity !== null; */
-  
 }
 
 //checks for correct birthdate
@@ -123,16 +112,13 @@ function conditionsValid(){
   return conditions.checked;
 }
 
+/* --------------------- FUNCTIONS FOR DISPLAYING ERRORS -------------------- */
+
 // displays error message when field is invalid
 function isInvalid(i, message) {
   formData[i].setAttribute("data-error-visible", "true");
   formData[i].setAttribute("data-error", message);
 }
-
-/* function fieldIsValid(i) {
-  formData[i].setAttribute("data-error-visible", "false");
-  formData[i].setAttribute("data-error", "");
-} */
 
 // removes error message on valid fields
 function isValid(){
@@ -143,6 +129,8 @@ function isValid(){
   }
 }
 
+/* ------------------------- FORM CHECKS AND SUBMIT ------------------------- */
+
 form.addEventListener('submit', function(e){
   e.preventDefault();
   validate();
@@ -151,52 +139,45 @@ form.addEventListener('submit', function(e){
 // checks every field, displays error message when invalid
 function validate(){
   let formValid = true;
-  isValid();
+  isValid(); // clears previous error messages
   if (!firstNameValid()){   
     isInvalid(0, errorMessages.firstNameError);
     formValid = false;
-  } else {
-    //fieldIsValid(0);
   }
   if (!lastNameValid()){
     formValid = false;
     isInvalid(1, errorMessages.lastNameError);
-  } else {
-    //fieldIsValid(1);
   }
   if (!emailValid()){
     formValid = false;
     isInvalid(2, errorMessages.emailError);
-  } else {
-    //fieldIsValid(2);
   }
   if (!birthdateValid()){
     formValid = false;
     isInvalid(3, errorMessages.birthdateError);
-  } else {
-    //fieldIsValid(3);
   }
   if (!concoursValid()){
     formValid = false;
     isInvalid(4, errorMessages.concoursError);
-  } else {
-    //fieldIsValid(4);
   }
   if (!locationValid()){
     formValid = false;
     isInvalid(5, errorMessages.locationError);
-  } else {
-    //fieldIsValid(5);
   }
   if (!conditionsValid()){
     formValid = false;
     isInvalid(6, errorMessages.conditionsError);
-  } else {
-    //fieldIsValid(6);
   }
-  if (formValid){
-    confirmationOpen();
-    //alert("Le formulaire a bien été envoyé");
+  if (formValid){ // submit success if all checks true
+    confirmationOpen(); // displays success message
+    setTimeout(clearForm, 2000); // clears all fields 2s after submit successful
+  }
+}
+
+function clearForm(){
+  let formInputs = document.querySelectorAll('input');
+  for (filledInput of formInputs){
+    filledInput.value = "";
   }
 }
 
