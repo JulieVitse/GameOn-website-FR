@@ -14,18 +14,18 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector('.close');
 const form = document.querySelector('form');
-
+// confirmation modal elements
 const modalConfirm = document.querySelector('.modal-confirm');
 const modalConfirmClose = document.querySelector('.modal-confirm-btn');
-
 // form data elements
 const firstName = document.getElementById('first');
 const lastName = document.getElementById('last');
 const email = document.getElementById('email');
-const concours = document.getElementById('quantity');
 const birthdate = document.getElementById('birthdate');
+const concours = document.getElementById('quantity');
+const locations = document.getElementById('location1');
 const conditions = document.getElementById('checkbox1');
-
+const cityList = document.querySelectorAll('input[name="location"]');
 //error messages
 const errorMessages = {
   firstNameError: "Vous devez entrer 2 caractères ou plus.",
@@ -52,82 +52,150 @@ closeBtn.addEventListener('click', () => {
   body.style.overflow = "auto"; // activates scrolling again on closing the modal
 });
 
+/* --------------------------- confirmation modal --------------------------- */
+
 // displays confimation message on valid form submit
 function confirmationOpen(){
   modalConfirm.style.display = "flex";
 }
 
-//closes confirmation window
+//closes confirmation window & modal
 modalConfirmClose.addEventListener('click', () => {
   modalConfirm.style.display = "none";
   modalbg.style.display = "none";
 })
 
-/* ------------------------------ INPUT CHECKS ------------------------------ */
-
-// checks first name & returns true if not empty and has 2 or more characters
-function firstNameValid(){
-  let nameInput = firstName.value;
-  return nameInput !== null && nameInput.length >= 2;
-}
-
-// checks last name & returns true if not empty and has 2 or more characters
-function lastNameValid(){
-  let lastNameInput = lastName.value;
-  return lastNameInput !== null && lastNameInput.length >= 2;
-}
-
-//checks for correct email format
-function emailValid(){
-  let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  let emailInput = email.value;
-  if (emailInput.match(regex)) return true;
-}
-
-// checks that only numbers between 0 and 99 are entered
-function concoursValid(){
-  let concoursQuantity = concours.value;
-  if (concoursQuantity !== '' && concoursQuantity >= 0 && concoursQuantity <= 99)
-  return true;
-}
-
-//checks for correct birthdate
-function birthdateValid(){
-  let regexBirthdate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-  return regexBirthdate.test(birthdate.value);
-}
-
-// checks that a location has been selected
-function locationValid(){ 
-  // gets all radio inputs
-  let radioButtons = document.querySelectorAll('.checkbox-input[type="radio"]'); 
-  // loops through all radio inputs, returns true if one is checked
-  for (let radioBtn of radioButtons) {
-    if(radioBtn.checked === true) return true;
-  }
-}
-
-// checks that the required box is checked
-function conditionsValid(){
-  return conditions.checked;
-}
-
 /* --------------------- FUNCTIONS FOR DISPLAYING ERRORS -------------------- */
 
 // displays error message when field is invalid
-function isInvalid(i, message) {
-  formData[i].setAttribute("data-error-visible", "true");
-  formData[i].setAttribute("data-error", message);
+function isInvalid(elem, message) {
+  elem.parentElement.setAttribute("data-error-visible", "true");
+  elem.parentElement.setAttribute("data-error", message);
 }
 
 // removes error message on valid fields
-function isValid(){
+function isValid(elem) {
+  elem.parentElement.setAttribute("data-error-visible", "false");
+  elem.parentElement.removeAttribute("data-error");
+}
+
+// clears all error messages
+function clearErrors(){
   let invalidInput = document.querySelectorAll('.formData[data-error-visible="true"]');
   for (let input of invalidInput) {
     input.setAttribute("data-error-visible", "false");
     input.removeAttribute("data-error");
   }
 }
+
+/* ------------------------------ INPUT CHECKS ------------------------------ */
+
+// checks first name & returns true if not empty and has 2 or more characters
+function firstNameValid(firstName, message){
+  let nameInput = firstName.value;
+  if (nameInput !== null && nameInput.length >= 2){
+    isValid(firstName);
+    return true;
+  } else {
+    isInvalid(firstName, message);
+  }
+}
+
+// checks last name & returns true if not empty and has 2 or more characters
+function lastNameValid(lastName, message){
+  let lastNameInput = lastName.value;
+  if (lastNameInput !== null && lastNameInput.length >= 2){
+    isValid(lastName);
+    return true;
+  } else {
+    isInvalid(lastName, message);
+  }
+}
+
+//checks for correct email format
+function emailValid(email, message){
+  let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let emailInput = email.value;
+  if (emailInput.match(regex)) {
+    isValid(email);
+    return true;
+  } else {
+    isInvalid(email, message);
+  }
+}
+
+//checks for correct birthdate
+function birthdateValid(birthdate, message){
+  let regexBirthdate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+  if (regexBirthdate.test(birthdate.value)) {
+    isValid(birthdate);
+    return true;
+  } else {
+    isInvalid(birthdate, message);
+  }
+}
+
+// checks that only numbers between 0 and 99 are entered
+function concoursValid(concours, message){
+  let concoursQuantity = concours.value;
+  if (concoursQuantity !== '' && concoursQuantity >= 0 && concoursQuantity <= 99) {
+    isValid(concours);
+    return true;
+  } else {
+    isInvalid(concours, message);
+  }
+}
+
+// checks that a location has been selected
+function locationValid(locations, message){ 
+  let radioButtons = document.querySelectorAll('.checkbox-input[type="radio"]'); // gets all radio inputs
+  for (let radioBtn of radioButtons) { // loops through all radio inputs, returns true if one is checked
+    if(radioBtn.checked === true) {
+      isValid(locations);
+      return true;
+    } else {
+      isInvalid(locations, message);
+    }
+  }
+}
+
+// checks that the required box is checked
+function conditionsValid(conditions, message){
+  if (conditions.checked === true) {
+    isValid(conditions);
+    return true;
+  } else {
+    isInvalid (conditions, message);
+  }
+}
+
+/* ----------------------- LISTENERS ON INPUT CHANGING ---------------------- */
+
+firstName.addEventListener('change', () => {
+  firstNameValid(firstName, errorMessages.firstNameError);
+})
+
+lastName.addEventListener('change', () => {
+  lastNameValid(lastName, errorMessages.lastNameError);
+})
+
+email.addEventListener('change', () => {
+  emailValid(email, errorMessages.emailError);
+})
+
+birthdate.addEventListener('change', () => {
+  birthdateValid(birthdate, errorMessages.birthdateError);
+})
+
+concours.addEventListener('change', () => {
+  concoursValid(concours, errorMessages.concoursError);
+})
+
+cityList.forEach(city => {
+  city.addEventListener('change', () => {
+    locationValid(locations, errorMessages.locationError);
+  });
+})
 
 /* ------------------------- FORM CHECKS AND SUBMIT ------------------------- */
 
@@ -136,50 +204,47 @@ form.addEventListener('submit', function(e){
   validate();
 });
 
-// checks every field, displays error message when invalid
+// on submit, checks every field & displays error message when invalid
 function validate(){
   let formValid = true;
-  isValid(); // clears previous error messages
-  if (!firstNameValid()){   
-    isInvalid(0, errorMessages.firstNameError);
+  if (!(firstNameValid(firstName, errorMessages.firstNameError))){
+    formValid = false;
+    }
+  if (!(lastNameValid(lastName, errorMessages.lastNameError))){
     formValid = false;
   }
-  if (!lastNameValid()){
+  if (!(emailValid(email, errorMessages.emailError))){
     formValid = false;
-    isInvalid(1, errorMessages.lastNameError);
   }
-  if (!emailValid()){
+  if (!(birthdateValid(birthdate, errorMessages.birthdateError))){
     formValid = false;
-    isInvalid(2, errorMessages.emailError);
   }
-  if (!birthdateValid()){
+  if (!(concoursValid(concours, errorMessages.concoursError))){
     formValid = false;
-    isInvalid(3, errorMessages.birthdateError);
   }
-  if (!concoursValid()){
+  if (!(locationValid(locations, errorMessages.locationError))){
     formValid = false;
-    isInvalid(4, errorMessages.concoursError);
   }
-  if (!locationValid()){
+  if (!(conditionsValid(conditions, errorMessages.conditionsError))){
     formValid = false;
-    isInvalid(5, errorMessages.locationError);
-  }
-  if (!conditionsValid()){
-    formValid = false;
-    isInvalid(6, errorMessages.conditionsError);
   }
   if (formValid){ // submit success if all checks true
     confirmationOpen(); // displays success message
+    clearErrors(); // clears previous error messages
     setTimeout(clearForm, 2000); // clears all fields 2s after submit successful
   }
 }
 
+// clears all filled inputs except submit button
 function clearForm(){
-  let formInputs = document.querySelectorAll('input');
+  let formInputs = document.querySelectorAll('.formData input');
   for (filledInput of formInputs){
     filledInput.value = "";
+    filledInput.checked = false;
   }
 }
+
+
 
 
 
