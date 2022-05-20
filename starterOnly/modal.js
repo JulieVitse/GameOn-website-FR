@@ -240,7 +240,9 @@ function clearForm(){
   let formInputs = document.querySelectorAll('.formData input');
   for (filledInput of formInputs){
     filledInput.value = "";
-    filledInput.checked = false;
+  }
+  for (city of cityList){
+    city.checked = false;
   }
 }
 
