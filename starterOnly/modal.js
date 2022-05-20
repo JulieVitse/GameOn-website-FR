@@ -25,6 +25,7 @@ const email = document.getElementById('email');
 const concours = document.getElementById('quantity');
 const birthdate = document.getElementById('birthdate');
 const conditions = document.getElementById('checkbox1');
+const cityList = document.querySelectorAll('input[name="location"]');
 
 //error messages
 const errorMessages = {
@@ -174,10 +175,14 @@ function validate(){
   }
 }
 
+// clears all filled inputs except submit button
 function clearForm(){
-  let formInputs = document.querySelectorAll('input');
+  let formInputs = document.querySelectorAll('.formData input');
   for (filledInput of formInputs){
     filledInput.value = "";
+  }
+  for (city of cityList){
+    city.checked = false;
   }
 }
 
