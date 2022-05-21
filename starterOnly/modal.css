@@ -212,8 +212,10 @@ main {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
+  -webkit-animation-name: modalopen;
+          animation-name: modalopen;
+  -webkit-animation-duration: var(--modal-duration);
+          animation-duration: var(--modal-duration);
   background: #232323;
   border-radius: 10px;
   overflow: hidden;
@@ -444,9 +446,7 @@ input[data-error]::after {
   font-size: 16px;
 }
 .hero-section {
-  /* min-height: 93vh; */
   height: auto;
-  max-height: 68vh;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -456,21 +456,12 @@ input[data-error]::after {
 }
 .hero-content {
   padding: 51px 67px;
-  grid-column: span 4;
+  grid-column: span 5;
   background: #232323;
   color: #fff;
-  position: relative;
+  /* position: relative; */
   text-align: left;
-  min-width: 424px;
-}
-.hero-content::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  background: #232323;
-  position: absolute;
-  right: -80px;
-  top: 0;
+  max-width: 100%;
 }
 .hero-content > * {
   position: relative;
@@ -482,7 +473,7 @@ input[data-error]::after {
   white-space: nowrap;
 }
 .hero-text {
-  width: 146%;
+  width: 130%;
   font-weight: normal;
   margin-top: 57px;
   padding: 0;
@@ -496,14 +487,13 @@ input[data-error]::after {
   margin-top: 59px;
 }
 .hero-img {
-  grid-column: span 8;
+  grid-column: span 7;
 }
 .hero-img img {
   width: 100%;
   height: 100%;
   display: block;
   padding: 0;
-  margin-left: 2rem;
 }
 .copyrights {
   color: #fe142f;
@@ -518,8 +508,10 @@ input[data-error]::after {
 
 .modal-confirm{    
   width: 100%;
-  animation-name: modalconfirm;
-  animation-duration: var(--modal-duration);
+  -webkit-animation-name: modalconfirm;
+          animation-name: modalconfirm;
+  -webkit-animation-duration: var(--modal-duration);
+          animation-duration: var(--modal-duration);
   background: #232323;
   border-radius: 10px;
   position: absolute;
@@ -550,35 +542,17 @@ footer {
   margin: 0 20px;
 }
 
-
 @media screen and (min-width: 801px) and (max-width: 1023px){
   .hero-content{
     padding: 29px 35px;
-    grid-column: span 5;
-    background: #232323;
-    color: #fff;
-    position: relative;
-    text-align: left;
-    min-width: auto;
-  }
-  .hero-content::after{
-    right: -50px;
   }
   .hero-headline{
     font-size: 4rem;
   }
   .hero-text{
-    width: 130%;
-  }
-  .hero-img{
-    grid-column: span 7;
-  }
-  .hero-img img{
-    margin-left: 50px;
+    width: 100%;
   }
 }
-
-
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -657,7 +631,6 @@ footer {
     margin-top: 1.5rem;
   }
 }
-
 @media screen and (max-width: 540px){
   .bground{
     background-color: initial;
@@ -673,10 +646,29 @@ footer {
   }
 }
 
+@-webkit-keyframes modalopen {
+  from {
+    opacity: 0;
+    transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes modalopen {
   from {
     opacity: 0;
     transform: translateY(-150px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes modalconfirm {
+  from {
+    opacity: 0;
   }
   to {
     opacity: 1;
