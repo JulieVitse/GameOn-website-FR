@@ -127,7 +127,9 @@ function emailValid(email, message){
 //checks for correct birthdate
 function birthdateValid(birthdate, message){
   let regexBirthdate = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-  if (regexBirthdate.test(birthdate.value)) {
+  let currentDate = new Date(Date.now());
+  let selectDate = new Date(Date.parse(birthdate.value));
+  if (regexBirthdate.test(birthdate.value) && currentDate > selectDate) {
     isValid(birthdate);
     return true;
   } else {
@@ -245,6 +247,7 @@ function clearForm(){
     city.checked = false;
   }
 }
+
 
 
 
