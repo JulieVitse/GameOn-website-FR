@@ -73,7 +73,8 @@ img {
 .topnav .icon {
   display: none;
 }
-
+/* ------------------------------- NAV QUERIES ------------------------------ */
+/* --------------------------------- tablets -------------------------------- */
 @media screen and (min-width: 768px) and (max-width: 1023px){
   .topnav{
     flex-direction: column;
@@ -91,43 +92,13 @@ img {
     margin-bottom: 1rem;
   }
 }
-@media screen and (max-width: 767px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    font-size: 25px;
-  }
-}
+/* --------------------------------- mobile --------------------------------- */
 
-@media screen and (max-width: 767px) {
-  .topnav.responsive {
-    position: relative;
-    flex-wrap: wrap;
-    transition: all .5s ease;
-  }
-  .topnav.responsive .main-navbar{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 1rem;
-    transition: all .5s ease;
-  }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-    margin: 0;
-  }
-}
 
 @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -198,6 +169,8 @@ main {
 
 .bground {
   display: none;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -248,6 +221,7 @@ input {
   border-radius: 8px;
   font-size: 20px;
   height: 48px;
+  cursor: pointer;
 }
 .formData[data-error]::after {
   content: attr(data-error);
@@ -292,6 +266,7 @@ input[data-error]::after {
   left: -30px;
   top: -1px;
   transition: 0.3s;
+  cursor: pointer;
 }
 .checkbox-label .checkbox-icon::after,
 .checkbox2-label .checkbox-icon::after {
@@ -499,7 +474,7 @@ input[data-error]::after {
   color: #fe142f;
   padding: 0;
   font-size: 1rem;
-  margin: 60px 0 30px;
+  margin: 60px 0 0 0;
   font-weight: bolder;
 }
 .hero-section > .btn-signup {
@@ -541,8 +516,8 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-
-@media screen and (min-width: 801px) and (max-width: 1023px){
+/* --------------------------------- QUERIES -------------------------------- */
+@media screen and (min-width: 768px) and (max-width: 1023px){
   .hero-content{
     padding: 29px 35px;
   }
@@ -594,10 +569,9 @@ footer {
     text-align: center;
   }
 }
-@media screen and (max-width: 700px){
+@media screen and (max-width: 767px){
   .header-logo{
-    width: 200px;
-    padding: 0 3.5%;
+    width: 130px;
   }
   .header-logo img{
     width: 100%;
@@ -605,20 +579,70 @@ footer {
   }
   .topnav{
     position: relative;
-    z-index: 5;
+    width: 100%;
+    margin: 0;
+    padding: 2rem;
+    overflow: visible;
+  }
+  .main-navbar{
+    position: absolute;
+  }
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    display: block;
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  .topnav.responsive {
+    position: relative;
+    flex-wrap: wrap;
+    transition: all .5s ease;
   }
   .topnav.responsive .main-navbar{
-    background-color: #fff;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
+    height: 100vh;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    width: 65%;
+    justify-content: flex-start;
+    /* top: 0; */
+    z-index: 10;
+    background-color: #232323f8;
+    backdrop-filter: blur(2px);
+    bottom: 0;
+    top: 0;
+    left: 0;
+    /* right: 0; */
+    padding: 1.5rem 0 0 1rem;
+    transition: all .5s ease;
+  }
+  .topnav.responsive a{
+    color: #fff;
+    float: none;
+    display: block;
+    text-align: left;
+    margin: .5rem 0;
   }
   .topnav.responsive a.icon {
-    margin: 0 3.5% 0 0;
+    /* margin: 0 3.5% 0 0; */
+    color: #000;
+    margin: 0;
+    padding: 0;
   }
   .topnav a.icon:hover {
     background-color: initial;
     color: initial;
     border-radius: initial;
+  }
+  .hero-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .hero-content{
     padding: 0;
@@ -630,8 +654,12 @@ footer {
   .hero-text{
     margin-top: 1.5rem;
   }
+  .copyrights{
+    margin: 0;
+  }
 }
-@media screen and (max-width: 540px){
+
+@media screen and (max-width: 599px){
   .bground{
     background-color: initial;
   }
@@ -646,6 +674,7 @@ footer {
   }
 }
 
+/* -------------------------------- KEYFRAMES ------------------------------- */
 @-webkit-keyframes modalopen {
   from {
     opacity: 0;

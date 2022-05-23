@@ -42,7 +42,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
-  modalbg.style.display = "block";
+  modalbg.style.display = "flex";
   body.style.overflow = "hidden"; // prevents page scrolling when modal is opened
 }
 
