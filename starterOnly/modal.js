@@ -114,7 +114,7 @@ function lastNameValid(lastName, message){
 
 //checks for correct email format
 function emailValid(email, message){
-  let regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  let regex = /^(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}$/;
   let emailInput = email.value;
   if (emailInput.match(regex)) {
     isValid(email);
