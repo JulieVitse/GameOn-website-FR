@@ -92,7 +92,7 @@ function clearErrors(){
 
 // checks first name & returns true if not empty and has 2 or more characters
 function firstNameValid(firstName, message){
-  let nameInput = firstName.value;
+  const nameInput = firstName.value;
   if (nameInput !== null && nameInput.length >= 2){
     isValid(firstName);
     return true;
@@ -103,7 +103,7 @@ function firstNameValid(firstName, message){
 
 // checks last name & returns true if not empty and has 2 or more characters
 function lastNameValid(lastName, message){
-  let lastNameInput = lastName.value;
+  const lastNameInput = lastName.value;
   if (lastNameInput !== null && lastNameInput.length >= 2){
     isValid(lastName);
     return true;
