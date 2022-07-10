@@ -89,7 +89,7 @@ img {
     margin: 0;
   }
   .header-logo{
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
 }
 /* --------------------------------- mobile --------------------------------- */
@@ -139,12 +139,6 @@ main {
 
 .modal-btn:hover {
   background: #3876ac;
-}
-
-.footer {
-  margin: 20px;
-  padding: 10px;
-  font-family: var(--font-slab);
 }
 
 /* Modal form */
@@ -533,7 +527,7 @@ footer {
     flex-basis: 50%;
   }
   .hero-headline{
-    font-size: 4rem;
+    font-size: 3rem;
     white-space: normal;
   }
   .hero-text{
@@ -550,7 +544,6 @@ footer {
   }
 }
 @media screen and (max-width: 1023px) {
-  
   .hero-content {
     background: #fff;
     color: #000;
@@ -578,6 +571,10 @@ footer {
   }
 }
 @media screen and (max-width: 767px){
+  body{
+    height: 100vh;
+    justify-content: space-around;
+  }
   .header-logo{
     width: 130px;
   }
@@ -662,6 +659,7 @@ footer {
   }
   .hero-headline{
     font-size: 2.5rem;
+    white-space: normal;
   }
   .hero-img img {
     border-radius: 10px;
